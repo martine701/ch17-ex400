@@ -1,32 +1,50 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+
+@Component({
+  selector: 'component1',
+  template: `
+  <h1>{{title}}</h1>
+  <router-outlet></router-outlet>
+  `,
+  styles: []
+})
+export class Component1 {
+  title = 'Component 1';
+}
+
+@Component({
+  selector: 'component1',
+  template: `
+  <h1>{{title}}</h1>
+  <router-outlet></router-outlet>
+  `,
+  styles: []
+})
+export class Component2 {
+  title = 'Component 2';
+}
 
 @Component({
   selector: 'app-root',
   template: `
-    <!--The content below is only a placeholder and can be replaced.-->
-    <div style="text-align:center" class="content">
-      <h1>
-        Welcome to {{title}}!
-      </h1>
-      <span style="display: block">{{ title }} app is running!</span>
-      <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-    </div>
-    <h2>Here are some links to help you start: </h2>
-    <ul>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-      </li>
-    </ul>
-    <router-outlet></router-outlet>
+  <button (click)="component1()">Component 1</button>
+  <button (click)="component2()">Component 2</button>
+  <button (click)="back()"><-Back</button>
+  <router-outlet></router-outlet>
   `,
   styles: []
 })
 export class AppComponent {
-  title = 'ch17-ex400';
+  constructor(private router: Router, private location: Location) { }
+  component1() {
+    this.router.navigate(['component1']).then(result => { console.log("navigation result: " + result) });
+  }
+  component2() {
+    this.router.navigateByUrl('/component2');
+  }
+  back() {
+    this.location.back();
+  }
 }
